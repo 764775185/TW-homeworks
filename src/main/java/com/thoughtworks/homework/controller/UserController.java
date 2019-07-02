@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 
-
 @Controller
 @RequestMapping(path="/api")
 public class UserController {
@@ -21,7 +20,8 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(path = "/")
-    public @ResponseBody String index(){
+    @ResponseBody
+    public String index(){
         System.out.println("hello,world");
         return "Hello World!";
     }

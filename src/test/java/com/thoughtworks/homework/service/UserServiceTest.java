@@ -23,7 +23,6 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 public class UserServiceTest {
 
-
     @InjectMocks
     private UserService userService;
 
