@@ -31,5 +31,4 @@ public class GlobalExceptionHandler {
         r.setCode(200);
         return r;
     }
-
 }
