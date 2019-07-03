@@ -1,4 +1,5 @@
 package com.thoughtworks.homework.service;
+
 import com.thoughtworks.homework.dto.UserDTO;
 import com.thoughtworks.homework.entity.User;
 import com.thoughtworks.homework.exception.BaseUserException;
@@ -55,7 +56,7 @@ public class UserServiceTest {
     @Test
     public void should_return_usersInfo_when_get_users(){
 
-        when(userRepository.findAll()).thenReturn(Collections.singleton((ZHANG_SAN)));
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(ZHANG_SAN));
 
         UserDTO<Iterable<User>> u = userService.getAllUsers();
 
