@@ -5,5 +5,5 @@ CREATE TABLE user (
   gender VARCHAR(20) NOT NULL,
   CONSTRAINT pk_user PRIMARY KEY (id),
   CONSTRAINT pk_username UNIQUE (username)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
