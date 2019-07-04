@@ -5,6 +5,9 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collection;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class RedisService {
@@ -19,5 +22,10 @@ public class RedisService {
     public Object get(String key) {
         ValueOperations<String,Object> vo = redisTemplate.opsForValue();
         return vo.get(key);
+    }
+
+    public void clean() {
+        Set<String> keys = redisTemplate.keys("" + "*");
+        redisTemplate.delete(keys);
     }
 }

@@ -26,4 +26,11 @@ public class RedisController {
     public Object getUserFromRedis(@RequestParam String username){
         return reidsService.get(username);
     }
+
+    @DeleteMapping(path = "/redis")
+    @ResponseBody
+    public String cleanRedis(){
+        reidsService.clean();
+        return "redis is empty!";
+    }
 }
