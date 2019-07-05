@@ -18,7 +18,7 @@ public class RedisController {
     @ResponseBody
     public String addUserToRedis(@RequestBody User user ){
         reidsService.set(user.getUsername(),user);
-        return user.getUsername();
+        return "save user:"+user.getUsername()+"successful!";
     }
 
     @GetMapping(path = "/redis")
@@ -29,8 +29,8 @@ public class RedisController {
 
     @DeleteMapping(path = "/redis")
     @ResponseBody
-    public String cleanRedis(){
+    public String clearRedis(){
         reidsService.clean();
-        return "redis is empty!";
+        return "clear successful, redis is empty!";
     }
 }

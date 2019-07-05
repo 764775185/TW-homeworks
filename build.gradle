@@ -19,6 +19,14 @@ bootJar {
 }
 
 repositories {
+    //为下载compile 'otr:keyvault-spring-boot-starter:springboot-1.5'配置以下信息
+    maven {
+        url "https://ci.otr.mercedes-benz.com.cn:8443/repository/mvngroup/"
+        credentials {
+            username = repoUser
+            password = repoPassword
+        }
+    }
     mavenCentral()
 }
 
@@ -37,13 +45,31 @@ dependencies {
     compile 'org.projectlombok:lombok:1.18.0'
 
     compile 'org.flywaydb:flyway-core:5.2.1'
+    
+
+    compile 'otr:keyvault-spring-boot-starter:springboot-1.5'
+    
+
+    // https://mvnrepository.com/artifact/com.microsoft.azure/azure-keyvault
+    compile group: 'com.microsoft.azure', name: 'azure-keyvault', version: '0.8.3'
+
+    compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-pool2
+    compile group: 'org.apache.commons', name: 'commons-pool2', version: '2.3'
+
+    // https://mvnrepository.com/artifact/org.springframework/spring-jdbc
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.1.5.RELEASE'
+
+    compile 'redis.clients:jedis:2.9.0'
+    
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '2.1.6.RELEASE'
 
     // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    
+
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.0'
 

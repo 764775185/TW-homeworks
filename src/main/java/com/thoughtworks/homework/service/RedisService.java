@@ -5,9 +5,7 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class RedisService {

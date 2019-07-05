@@ -1,0 +1,49 @@
+spring:
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/cljDB
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 1
+    timeout: 300
+    ssl: true
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+keyvault:
+  client_id: ${AD_CLIENTID:''}
+  client_secret: ${AD_SECRET:''}
+  enabled: false
+  mysql_host_key: IOTRSQLDBHOST12
+  mysql_password_key: IOTRSQLDBPAWD12
+  mysql_user_key: IOTRSQLDBUSER12
+  name: IOTRMCNINFKEYVAULT01
+  redis_key: IOTRSQLDBHOST10
+  sas_key: IOTRSTORSAS02
+  service_bus_connection_string: IOTRSBCS01
+  jwt_expiration_key: IOTRSEC24
+  jwt_secret_key: IOTRSEC25
+  blobConnectionStringKey: IOTRSTORSAS08
+  azure:
+    client_id: ${AD_CLIENTID:''}
+    client_secret: ${AD_SECRET:''}
+    clientUrl: ${VAULT_URL:''}
+
+keyvault.broker.default: mock
