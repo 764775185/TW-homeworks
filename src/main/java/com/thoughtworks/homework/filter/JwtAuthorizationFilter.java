@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
+import static com.thoughtworks.homework.JwtUtils.JwtTokenUtils.TOKEN_HEADER;
+
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
@@ -23,7 +25,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     public void doFilterInternal(HttpServletRequest request,
                                  HttpServletResponse response,
                                  FilterChain chain) throws IOException, ServletException {
-        String tokenHeader = request.getHeader(JwtTokenUtils.TOKEN_HEADER);
+        String tokenHeader = request.getHeader(TOKEN_HEADER);
         // 如果请求头中没有Authorization信息则直接放行了
         if (tokenHeader == null || !tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
