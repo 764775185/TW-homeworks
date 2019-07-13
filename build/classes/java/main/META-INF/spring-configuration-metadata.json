@@ -2,61 +2,61 @@
   "groups": [
     {
       "name": "keyvault",
-      "type": "com.thoughtworks.homework.configuration.KeyVault",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "type": "com.thoughtworks.homework.configuration.KeyVaultDefine",
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     }
   ],
   "properties": [
     {
       "name": "keyvault.blob-connection-string-key",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.client-id",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.client-secret",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.enabled",
       "type": "java.lang.Boolean",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault",
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine",
       "defaultValue": false
     },
     {
       "name": "keyvault.mysql-host-key",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.mysql-password-key",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.mysql-user-key",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.name",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.redis-key",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     },
     {
       "name": "keyvault.service-bus-connection-string",
       "type": "java.lang.String",
-      "sourceType": "com.thoughtworks.homework.configuration.KeyVault"
+      "sourceType": "com.thoughtworks.homework.configuration.KeyVaultDefine"
     }
   ],
   "hints": []

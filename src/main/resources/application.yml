@@ -26,6 +26,20 @@ spring:
     enabled: true
     baseline-on-migrate: true
     locations: classpath:db/migration
+  mail:
+    default-encoding: UTF-8
+    host: smtp.chinadream.org
+    username: 764775185@qq.com
+    password: Clj10170612hjbc!
+    protocol: smtp
+    port: 465
+    from: 764775185@qq.com
+    properties.mail.smtp.auth: true
+    properties.mail.smtp.port: 465
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+
 
 keyvault:
   client_id: ${AD_CLIENTID:''}

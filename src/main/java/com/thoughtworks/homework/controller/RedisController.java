@@ -2,35 +2,55 @@ package com.thoughtworks.homework.controller;
 
 import com.thoughtworks.homework.entity.User;
 import com.thoughtworks.homework.service.RedisService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Controller
 @RequestMapping(path="/api")
+@Api(tags = "RedisController")
 public class RedisController {
 
     @Autowired
-    private RedisService reidsService;
+    private RedisService redisService;
 
-    @PostMapping(path = "/redis")
+    @PostMapping(path = "/redisUser")
     @ResponseBody
-    public String addUserToRedis(@RequestBody User user ){
-        reidsService.set(user.getUsername(),user);
-        return "save user:"+user.getUsername()+"successful!";
+    public String saveUser(@RequestBody User user){
+        redisService.set(user.getUsername(),user);
+        return "success";
     }
 
-    @GetMapping(path = "/redis")
+    @GetMapping(path = "/redisUser")
     @ResponseBody
-    public Object getUserFromRedis(@RequestParam String username){
-        return reidsService.get(username);
+    public Object getUser(@RequestParam String username){
+        return redisService.get(username);
     }
 
-    @DeleteMapping(path = "/redis")
+    @GetMapping(path = "/value")
     @ResponseBody
-    public String clearRedis(){
-        reidsService.clean();
-        return "clear successful, redis is empty!";
+    public Object getStatus(@RequestParam String key) {
+        return redisService.get(key);
+    }
+
+    @RequestMapping(path = "/clearRedis")
+    @ResponseBody
+    public Map<String, Object> clearRedis() {
+        Map<String, Object> result = new HashMap<>();
+        try{
+            redisService.clearRedis();
+        }catch (Exception e){
+            result = redisService.setStatus("失败");
+            redisService.set("lastClearRedisStatus",result);
+            return result;
+        }
+        redisService.setStatus("成功");
+        redisService.set("lastClearRedisStatus",result);
+        return result;
     }
 }
