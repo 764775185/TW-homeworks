@@ -1,6 +1,6 @@
 package com.thoughtworks.homework.exception;
 
-public class BaseUserException extends Exception {
+public class BaseUserException extends RuntimeException{
 
     public BaseUserException(String message) {
         super(message);

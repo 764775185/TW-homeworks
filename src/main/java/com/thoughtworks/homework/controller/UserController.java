@@ -1,6 +1,5 @@
 package com.thoughtworks.homework.controller;
 
-import com.thoughtworks.homework.dto.UserDTO;
 import com.thoughtworks.homework.entity.User;
 import com.thoughtworks.homework.exception.BaseUserException;
 import com.thoughtworks.homework.service.UserService;
@@ -29,7 +28,6 @@ public class UserController {
     @GetMapping(path = "/users")
     @ResponseBody
     public UserDTO<Iterable<User>> getAllUsers(){
-
         return userService.getAllUsers();
     }
 

@@ -1,6 +1,5 @@
 package com.thoughtworks.homework.service;
 
-import com.thoughtworks.homework.dto.UserDTO;
 import com.thoughtworks.homework.entity.User;
 import com.thoughtworks.homework.exception.BaseUserException;
 import com.thoughtworks.homework.repository.UserRepository;
