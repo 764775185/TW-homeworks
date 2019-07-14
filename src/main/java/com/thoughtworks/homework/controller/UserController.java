@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,9 +61,11 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/user")
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseBody
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public UserResponse<User> deleteUser(@RequestParam int id)  {
-       return userService.deleteUser(id);
+    public UserResponse<User> deleteUser(@RequestParam int id) {
+        return userService.deleteUser(id);
     }
+
 }
