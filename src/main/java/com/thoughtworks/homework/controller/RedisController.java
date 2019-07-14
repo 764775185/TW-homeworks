@@ -1,32 +1,31 @@
 package com.thoughtworks.homework.controller;
 
-import com.thoughtworks.homework.entity.User;
+import com.thoughtworks.homework.entity.Users;
 import com.thoughtworks.homework.service.RedisService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping(path="/api")
-@Api(tags = "RedisController")
+@RequestMapping(path="/api/redis")
+@ApiIgnore
 public class RedisController {
 
     @Autowired
     private RedisService redisService;
 
-    @PostMapping(path = "/redisUser")
+    @PostMapping(path = "/User")
     @ResponseBody
-    public String saveUser(@RequestBody User user){
-        redisService.set(user.getUsername(),user);
+    public String saveUser(@RequestBody Users users){
+        redisService.set(users.getUsername(), users);
         return "success";
     }
 
-    @GetMapping(path = "/redisUser")
+    @GetMapping(path = "/User")
     @ResponseBody
     public Object getUser(@RequestParam String username){
         return redisService.get(username);
@@ -38,7 +37,7 @@ public class RedisController {
         return redisService.get(key);
     }
 
-    @RequestMapping(path = "/clearRedis")
+    @RequestMapping(path = "/clear")
     @ResponseBody
     public Map<String, Object> clearRedis() {
         Map<String, Object> result = new HashMap<>();

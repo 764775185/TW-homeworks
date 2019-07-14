@@ -29,11 +29,11 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.chinadream.org
-    username: 764775185@qq.com
-    password: Clj10170612hjbc!
+    username: admin@chinadream.org
+    password: Yq1996052468
     protocol: smtp
     port: 465
-    from: 764775185@qq.com
+    from: admin@chinadream.org
     properties.mail.smtp.auth: true
     properties.mail.smtp.port: 465
     properties.mail.smtp.starttls.enable: true

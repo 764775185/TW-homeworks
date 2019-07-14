@@ -15,17 +15,37 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = UserException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDTO jsonErrorHandler(HttpServletRequest req, UserException e) throws Exception {
+    public ErrorDTO jsonErrorHandler(HttpServletRequest req, UserException e) {
         ErrorDTO r = new ErrorDTO();
         r.setMessage(e.getMessage());
-        r.setCode(101);
+        r.setCode(400);
         return r;
     }
 
     @ExceptionHandler(value = BaseUserException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ErrorDTO BasejsonErrorHandler(HttpServletRequest req, BaseUserException e) throws Exception {
+    public ErrorDTO BasejsonErrorHandler(HttpServletRequest req, BaseUserException e) {
+        ErrorDTO r = new ErrorDTO();
+        r.setMessage(e.getMessage());
+        r.setCode(200);
+        return r;
+    }
+
+    @ExceptionHandler(value = AuthorizationException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorDTO AuthorizationHandler(HttpServletRequest req, AuthorizationException e) {
+        ErrorDTO r = new ErrorDTO();
+        r.setMessage(e.getMessage());
+        r.setCode(403);
+        return r;
+    }
+
+    @ExceptionHandler(value = BasePostException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ErrorDTO PostJsonErrorHandler(HttpServletRequest req, BasePostException e) {
         ErrorDTO r = new ErrorDTO();
         r.setMessage(e.getMessage());
         r.setCode(200);

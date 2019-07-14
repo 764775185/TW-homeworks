@@ -1,7 +1,7 @@
 package com.thoughtworks.homework.service;
 
 import com.thoughtworks.homework.entity.JwtUser;
-import com.thoughtworks.homework.entity.User;
+import com.thoughtworks.homework.entity.Users;
 import com.thoughtworks.homework.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findUserByEmail(email);
+        Optional<Users> user = userRepository.findUserByEmail(email);
         return new JwtUser(user.get());
     }
 }

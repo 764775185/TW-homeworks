@@ -1,4 +1,4 @@
-package com.thoughtworks.homework.JwtUtils;
+package com.thoughtworks.homework.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -7,7 +7,6 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Date;
 import java.util.HashMap;
 
-//生成token
 public class JwtTokenUtils {
 
     public static final String TOKEN_HEADER = "Authorization";
@@ -19,13 +18,13 @@ public class JwtTokenUtils {
     //设置过期时间3600S = 1 H
     private static final long EXPIRATION = 3600L;
 
-    //选择了记住我之后的过期时间为7天
+    // 选择了记住我之后的过期时间为7天
     private static final long EXPIRATION_REMEMBER = 604800L;
 
-    //添加角色的key
+    // 添加角色的key
     private static final String ROLE_CLAIMS = "role";
 
-    public static String createToken(String email, String role, boolean isRememberMe) {
+    public static String createToken(String email, String role,boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
         HashMap<String, Object> map = new HashMap<>();
         map.put(ROLE_CLAIMS, role);
@@ -36,6 +35,16 @@ public class JwtTokenUtils {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                .compact();
+    }
+
+    public static String createMailToken(String email) {
+        return Jwts.builder()
+                .signWith(SignatureAlgorithm.HS512,SECRET)
+                .setIssuer(ISS)
+                .setSubject(email)
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION * 1000))
                 .compact();
     }
 

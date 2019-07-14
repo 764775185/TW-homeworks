@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AuthorizationResponse {
+public class BaseResponse {
     private Integer code;
     private String message;
-    private String token;
 }

@@ -13,10 +13,11 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Table(name = "post")
-public class Post implements Serializable {
+public class Posts implements Serializable {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
@@ -26,14 +27,18 @@ public class Post implements Serializable {
     @Column(name = "content")
     private String content;
 
+    @Column(name = "timestamp")
+    private String timestamp;
+
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "users_id")
+    private Users users;
 
-    public Post(@NotNull String title, String content, @NotNull User user) {
+    public Posts(@NotNull String title, String content, String timestamp, @NotNull Users users) {
         this.title = title;
         this.content = content;
-        this.user = user;
+        this.timestamp = timestamp;
+        this.users = users;
     }
 }

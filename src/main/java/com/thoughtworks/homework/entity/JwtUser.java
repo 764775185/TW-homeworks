@@ -17,12 +17,12 @@ public class JwtUser implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public JwtUser(User user) {
-        this.id = user.getId();
-        this.username = user.getUsername();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        authorities = Collections.singleton(new SimpleGrantedAuthority(user.getRole()));
+    public JwtUser(Users users) {
+        this.id = users.getId();
+        this.username = users.getUsername();
+        this.email = users.getEmail();
+        this.password = users.getPassword();
+        authorities = Collections.singleton(new SimpleGrantedAuthority(users.getRole()));
     }
 
     //获取权限信息

@@ -1,15 +1,15 @@
 package com.thoughtworks.homework.controller;
 
-import com.thoughtworks.homework.dto.AuthorizationResponse;
+import com.thoughtworks.homework.dto.BaseResponse;
+import com.thoughtworks.homework.dto.LoginRequest;
 import com.thoughtworks.homework.dto.UserResponse;
-import com.thoughtworks.homework.entity.User;
-import com.thoughtworks.homework.service.AuthorizationService;
-import com.thoughtworks.homework.service.UserService;
+import com.thoughtworks.homework.entity.Users;
+import com.thoughtworks.homework.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.parameters.P;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,39 +17,56 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api/auth")
 @Api(tags = "AuthController")
 public class AuthController {
-    @Autowired
-    private UserService userService;
 
     @Autowired
-    private AuthorizationService authorizationService;
+    private AuthService authService;
 
-    @ApiOperation(value = "Hello,World!")
     @PostMapping(path = "/")
-    public @ResponseBody
-    String index(){
+    public @ResponseBody String index(){
         System.out.println("hello,world");
         return "Hello World!";
     }
 
-    @ApiOperation(value = "注册账户信息", notes = "需要获取邮箱中的注册验证码")
-    @PostMapping(path = "/register")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "个人信息",notes = "获取当前Token用户")
+    @GetMapping(path = "/me")
     @ResponseBody
-    public UserResponse<User> addNewUser(@RequestBody User user,@RequestParam String registerCode){
-        return userService.creatUser(user,registerCode);
+    public UserResponse<Users> me(){
+        return authService.me();
     }
 
-    @ApiOperation(value = "重置账户密码", notes = "需要邮箱中的重置验证码")
+    @ApiOperation(value = "注册账户",notes = "需要注册验证码")
+    @PostMapping(path = "/register")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserResponse<Users> register(@RequestBody Users users, @RequestParam String registerCode) {
+        return authService.register(users,registerCode);
+    }
+
+    @ApiOperation(value = "登陆账户")
+    @PostMapping(path = "/login")
+    public String login(@RequestBody LoginRequest loginRequest){
+        return "login";
+    }
+
+    @ApiOperation(value = "重置账户密码",notes = "需要重置验证码")
     @PostMapping(path = "/resetPassword")
     @ResponseBody
-    public UserResponse<User> resetPassword(@RequestParam String email, @RequestParam String password,@RequestParam String resetPasswordCode){
-        return userService.resetUserPassword(email, password, resetPasswordCode);
+    public UserResponse<Users> resetPassword(@RequestParam String email, @RequestParam String password, @RequestParam String resetPasswordCode) {
+        return authService.resetUserPassword(email,password,resetPasswordCode);
     }
 
-    @PostMapping(path = "/login")
+    @ApiOperation(value = "更改账户权限",notes = "目前只有普通用户,协管员和管理员")
+    @PostMapping(path = "/permissions")
     @ResponseBody
-    public AuthorizationResponse login(@RequestParam String email, @RequestParam String password){
-        return authorizationService.login(email,password);
+    @PreAuthorize("hasRole('ADMIN')")
+    public BaseResponse permissions(@RequestParam String email,@RequestParam String role){
+        return authService.changePermissions(email,role);
     }
 
+    @ApiOperation(value = "注销登陆")
+    @PostMapping(path = "/logout")
+    @ResponseBody
+    public BaseResponse logout(){
+        return authService.logout();
+    }
 }

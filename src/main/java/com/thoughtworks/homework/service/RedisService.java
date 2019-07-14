@@ -28,6 +28,10 @@ public class RedisService {
         vo.set(key,value,minute, TimeUnit.MINUTES);
     }
 
+    public void clearRedisByKey(String key) {
+        redisTemplate.delete(key);
+    }
+
     public Object get(String key) {
         ValueOperations<String, Object> vo = redisTemplate.opsForValue();
         return vo.get(key);

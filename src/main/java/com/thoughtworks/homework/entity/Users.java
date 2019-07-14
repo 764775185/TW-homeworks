@@ -16,19 +16,18 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Table(name = "user")
-public class User implements Serializable {
+public class Users implements Serializable {
     @Id
-    @Column(name="id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NonNull
-    @Column(name="username")
-    @Size(max = 50)
+    @Column(name = "username")
+    @NotNull
     private String username;
 
+    @Column(name = "email")
     @NotNull
-    @Column(name="email",unique = true)
     @Email
     private String email;
 
@@ -41,17 +40,16 @@ public class User implements Serializable {
     private String role;
 
     @Column(name = "age")
-    @Max(150)
     private int age;
 
-    @Column(name="gender")
+    @Column(name = "gender")
     private String gender;
 
-    public User(@Size(max = 50) String username, @NotNull @Email String email, @NotNull String password, @NotNull String role, @Max(150) int age, String gender) {
+    public Users(@NotNull String username, @NotNull @Email String email, @NotNull String password, int age, String gender) {
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = "ROLE_USER";
         this.age = age;
         this.gender = gender;
     }
