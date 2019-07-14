@@ -21,7 +21,7 @@ import java.util.Collection;
 //登录的认证过滤
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private  ThreadLocal<Boolean> rememberMe =  new ThreadLocal<>();
+    private ThreadLocal<Boolean> rememberMe =  new ThreadLocal<>();
     private AuthenticationManager authenticationManager;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager){
@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request,
                                                 HttpServletResponse response) throws AuthenticationException {
-        // 从输入流中获取到登录的信息
+        // 从输入流中获取到登录的信息LoginUserDTO
         try {
             LoginUserDTO loginUser = new ObjectMapper().readValue(request.getInputStream(), LoginUserDTO.class);
             rememberMe.set(loginUser.getRememberMe());

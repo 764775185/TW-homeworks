@@ -34,12 +34,12 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @PostMapping(path = "/user")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse<User> addNewUser(@RequestBody User user,@RequestBody String registerCode) {
-        return userService.creatUser(user,registerCode);
-    }
+//    @PostMapping(path = "/user")
+//    @ResponseBody
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public UserResponse<User> addNewUser(@RequestBody User user,@RequestBody String registerCode) {
+//        return userService.creatUser(user,registerCode);
+//    }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<String> handleException(EntityNotFoundException ex) {

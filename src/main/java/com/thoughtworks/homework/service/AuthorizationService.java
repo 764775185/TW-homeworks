@@ -19,10 +19,10 @@ public class AuthorizationService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public com.thoughtworks.homework.dto.AuthorizationResponse login(String email, String password) throws AuthorizationException {
+    public AuthorizationResponse login(String email, String password) throws AuthorizationException {
         Optional<User> u = userRepository.findUserByEmail(email);
         if (u.isPresent() && passwordEncoder.matches(password,u.get().getPassword())){
-            com.thoughtworks.homework.dto.AuthorizationResponse res = new AuthorizationResponse();
+            AuthorizationResponse res = new AuthorizationResponse();
             res.setCode(200);
             res.setMessage("登陆成功");
             return res;
