@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.xiaoymin:swagger-bootstrap-ui:1.9.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.github.xiaoymin/swagger-bootstrap-ui/1.9.4/7e344fa36b7c69fdf00594b0dbf587cb9a47ead8/swagger-bootstrap-ui-1.9.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/modules-2/files-2.1/com.github.xiaoymin/swagger-bootstrap-ui/1.9.4/5eb08841cb5cecfa47514bb7b0009d6f285e7c8a/swagger-bootstrap-ui-1.9.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

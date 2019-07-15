@@ -2,10 +2,12 @@ package com.thoughtworks.homework.configuration;
 
 import com.thoughtworks.homework.filter.JwtAuthenticationFilter;
 import com.thoughtworks.homework.filter.JwtAuthorizationFilter;
+import com.thoughtworks.homework.filter.SecurityBasicAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -30,44 +31,61 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     @Autowired
+    private AuthenticationEntryPoint authEntryPoint;
+
+    @Autowired
     // 因为UserDetailsService的实现类实在太多啦，这里设置一下我们要注入的实现类
     @Qualifier("userDetailsServiceImpl")
     private UserDetailsService userDetailsService;
 
-    /*@Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+    @Autowired
+    private Environment environment;
 
-     @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-    }
-    */
-
-    // 装载BCrypt密码编码器
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/","/api/auth/**","/api/mail/**","/swagger-ui.html").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/api/user","/api/users","/api/post","/api/posts","/api/redis/**","/api/auth/logout","/api/auth/me","/api/auth/permissions","/api/auth/resetPassword").authenticated()
+                .anyRequest().permitAll()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint());
+    }
+
+    @Bean
+    public SecurityBasicAuthFilter securityBasicAuthFilter(){
+        boolean enableSwaggerBasicAuth=false;
+        String dftUserName="admin",dftPass="123321";
+        if (environment!=null){
+            String enableAuth=environment.getProperty("swagger.basic.enable");
+            enableSwaggerBasicAuth=Boolean.valueOf(enableAuth);
+            if (enableSwaggerBasicAuth){
+                //如果开启basic验证,从配置文件中获取用户名和密码
+                String pUser=environment.getProperty("swagger.basic.username");
+                String pPass=environment.getProperty("swagger.basic.password");
+                if (pUser!=null&&!"".equals(pUser)){
+                    dftUserName=pUser;
+                }
+                if (pPass!=null&&!"".equals(pPass)){
+                    dftPass=pPass;
+                }
+            }
+        }
+        SecurityBasicAuthFilter securityBasicAuthFilter=new SecurityBasicAuthFilter(enableSwaggerBasicAuth,dftUserName,dftPass);
+        return securityBasicAuthFilter;
     }
 
     @Bean

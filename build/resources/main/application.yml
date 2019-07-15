@@ -39,7 +39,11 @@ spring:
     properties.mail.smtp.starttls.enable: true
     properties.mail.smtp.starttls.required: true
     properties.mail.smtp.ssl.enable: true
-
+swagger:
+  basic:
+    enable: true
+    username: yangqian
+    password: 123
 
 keyvault:
   client_id: ${AD_CLIENTID:''}
