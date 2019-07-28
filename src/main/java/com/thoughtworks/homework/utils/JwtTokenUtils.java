@@ -38,16 +38,6 @@ public class JwtTokenUtils {
                 .compact();
     }
 
-    public static String createMailToken(String email) {
-        return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS512,SECRET)
-                .setIssuer(ISS)
-                .setSubject(email)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION * 1000))
-                .compact();
-    }
-
     //从token中获取邮箱账号
     public static String getEmail(String token) {
         return getTokenBody(token).getSubject();

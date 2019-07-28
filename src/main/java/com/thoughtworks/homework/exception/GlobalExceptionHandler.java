@@ -12,43 +12,43 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = UserException.class)
+    @ExceptionHandler(value = OperateException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDTO jsonErrorHandler(HttpServletRequest req, UserException e) {
-        ErrorDTO r = new ErrorDTO();
-        r.setMessage(e.getMessage());
-        r.setCode(400);
-        return r;
-    }
+    public ErrorDTO operateErrorHandler(HttpServletRequest req, OperateException e) {
 
-    @ExceptionHandler(value = BaseUserException.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public ErrorDTO BasejsonErrorHandler(HttpServletRequest req, BaseUserException e) {
-        ErrorDTO r = new ErrorDTO();
-        r.setMessage(e.getMessage());
-        r.setCode(200);
-        return r;
+        return new ErrorDTO(400,e.getMessage());
     }
 
     @ExceptionHandler(value = AuthorizationException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorDTO AuthorizationHandler(HttpServletRequest req, AuthorizationException e) {
-        ErrorDTO r = new ErrorDTO();
-        r.setMessage(e.getMessage());
-        r.setCode(403);
-        return r;
+
+        return new ErrorDTO(403,e.getMessage());
+    }
+
+    @ExceptionHandler(value = BaseUserException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ErrorDTO BaseuserErrorHandler(HttpServletRequest req, BaseUserException e) {
+
+        return new ErrorDTO(200,e.getMessage());
     }
 
     @ExceptionHandler(value = BasePostException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public ErrorDTO PostJsonErrorHandler(HttpServletRequest req, BasePostException e) {
-        ErrorDTO r = new ErrorDTO();
-        r.setMessage(e.getMessage());
-        r.setCode(200);
-        return r;
+    public ErrorDTO PostErrorHandler(HttpServletRequest req, BasePostException e) {
+
+        return new ErrorDTO(200,e.getMessage());
+    }
+
+    @ExceptionHandler(value = BaseCommentException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public ErrorDTO CommentErrorHandler(HttpServletRequest req, BaseCommentException e) {
+
+        return new ErrorDTO(200,e.getMessage());
     }
 }

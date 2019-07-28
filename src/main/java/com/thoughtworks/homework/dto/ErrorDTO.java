@@ -9,4 +9,9 @@ import lombok.Setter;
 public class ErrorDTO {
     private Integer code;
     private String message;
+
+    public ErrorDTO(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }

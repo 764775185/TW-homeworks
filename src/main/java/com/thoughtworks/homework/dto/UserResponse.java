@@ -10,4 +10,9 @@ public class UserResponse<T> {
     private String message;
     private T data;
 
+    public UserResponse(Integer code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
 }

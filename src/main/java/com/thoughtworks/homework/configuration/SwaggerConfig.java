@@ -58,7 +58,7 @@ public class SwaggerConfig {
 
         return new ApiInfoBuilder()
                 //页面标题
-                .title("ThoughtWorks")
+                .title("CLJ_ThoughtWorks")
                 //描述
                 .description("HomeWork接口文档")
                 //创建人

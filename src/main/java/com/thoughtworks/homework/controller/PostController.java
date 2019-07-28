@@ -17,18 +17,21 @@ public class PostController {
     @Autowired
     private PostService postService;
 
+    @ApiOperation(value = "查找全部文章")
     @GetMapping(path = "/posts")
     @ResponseBody
     public PostResponse<Iterable<Posts>> getAllPosts(){
         return postService.getAllPosts();
     }
 
+    @ApiOperation(value = "查找单篇文章")
     @GetMapping(path = "/post")
     @ResponseBody
     public PostResponse<Posts> getPost(@RequestParam Integer id){
         return postService.findPost(id);
     }
 
+    @ApiOperation(value = "发表文章")
     @PostMapping(path = "/post")
     @ResponseBody
     public PostResponse<Posts> createPost(@RequestBody Posts posts){

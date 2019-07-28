@@ -47,7 +47,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             );
         }catch (IOException e) {
             e.printStackTrace();
-            System.out.println("123");
+            System.out.println("IOException！");
             return null;
         }
     }
@@ -63,16 +63,17 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // 查看源代码会发现调用getPrincipal()方法会返回一个实现了`UserDetails`接口的对象
         // 所以就是JwtUser啦
         JwtUser jwtUser = (JwtUser) authResult.getPrincipal();
-        System.out.println("jwtUser:" + jwtUser.toString());
+
         boolean isRemember;
         isRemember = rememberMe.get() !=null && rememberMe.get();
-        System.out.println(isRemember);
+
         String role = "";
         Collection<? extends GrantedAuthority> authorities = jwtUser.getAuthorities();
         for (GrantedAuthority authority : authorities){
             role = authority.getAuthority();
         }
         String token = JwtTokenUtils.createToken(jwtUser.getEmail(),role,isRemember);
+
         // 返回创建成功的token
         // 但是这里创建的token只是单纯的token
         // 按照jwt的规定，最后请求的格式应该是 `Bearer token`

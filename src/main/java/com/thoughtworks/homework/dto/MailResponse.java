@@ -8,4 +8,9 @@ import lombok.Setter;
 public class MailResponse {
     private Integer code;
     private String message;
+
+    public MailResponse(Integer code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 }

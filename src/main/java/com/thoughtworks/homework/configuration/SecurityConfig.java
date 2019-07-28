@@ -68,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public SecurityBasicAuthFilter securityBasicAuthFilter(){
         boolean enableSwaggerBasicAuth=false;
-        String dftUserName="admin",dftPass="123321";
+        String dftUserName="admin",dftPass="admin";
         if (environment!=null){
             String enableAuth=environment.getProperty("swagger.basic.enable");
             enableSwaggerBasicAuth=Boolean.valueOf(enableAuth);

@@ -1,9 +1,9 @@
 package com.thoughtworks.homework.controller;
 
 import com.thoughtworks.homework.dto.BaseResponse;
-import com.thoughtworks.homework.dto.LoginRequest;
 import com.thoughtworks.homework.dto.UserResponse;
 import com.thoughtworks.homework.entity.Users;
+import com.thoughtworks.homework.model.LoginUser;
 import com.thoughtworks.homework.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,12 +21,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping(path = "/")
-    public @ResponseBody String index(){
-        System.out.println("hello,world");
-        return "Hello World!";
-    }
-
     @ApiOperation(value = "个人信息",notes = "获取当前Token用户")
     @GetMapping(path = "/me")
     @ResponseBody
@@ -42,11 +36,9 @@ public class AuthController {
         return authService.register(users,registerCode);
     }
 
-    @ApiOperation(value = "登陆账户")
+    @ApiOperation(value = "账户登陆")
     @PostMapping(path = "/login")
-    public String login(@RequestBody LoginRequest loginRequest){
-        return "login";
-    }
+    public String login(@RequestBody LoginUser loginUser){ return "登录成功！"; }
 
     @ApiOperation(value = "重置账户密码",notes = "需要重置验证码")
     @PostMapping(path = "/resetPassword")
@@ -55,7 +47,7 @@ public class AuthController {
         return authService.resetUserPassword(email,password,resetPasswordCode);
     }
 
-    @ApiOperation(value = "更改账户权限",notes = "目前只有普通用户,协管员和管理员")
+    @ApiOperation(value = "更改账户权限",notes = "目前只有普通用户、协管员和管理员三种role")
     @PostMapping(path = "/permissions")
     @ResponseBody
     @PreAuthorize("hasRole('ADMIN')")

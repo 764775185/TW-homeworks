@@ -17,24 +17,27 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    @ApiOperation(value = "查找全部评论")
     @GetMapping(path = "/comments")
     @ResponseBody
     public CommentResponse<Iterable<Comments>> getAllComments(){
         return commentService.getAllComments();
     }
-
+    @ApiOperation(value = "查找单条评论")
     @GetMapping(path = "/comment")
     @ResponseBody
     public CommentResponse<Comments> getComment(@RequestParam Integer id){
         return commentService.findComment(id);
     }
 
+    @ApiOperation(value = "发表评论")
     @PostMapping(path = "/comment")
     @ResponseBody
     public CommentResponse<Comments> createComment(@RequestParam int post_id, @RequestBody Comments comments){
         return commentService.newComment(post_id,comments);
     }
 
+    @ApiOperation(value = "更新评论",notes = "只有作者和管理员可以更新")
     @PutMapping(path = "/comment")
     @ResponseBody
     public CommentResponse<Comments> updatecomment(@RequestBody Comments comments){

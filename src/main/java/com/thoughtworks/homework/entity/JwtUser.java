@@ -68,16 +68,4 @@ public class JwtUser implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    // 我自己重写打印下信息看的
-    @Override
-    public String toString() {
-        return "JwtUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", authorities=" + authorities +
-                '}';
-    }
 }

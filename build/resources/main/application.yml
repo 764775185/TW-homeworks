@@ -4,23 +4,25 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      use-new-id-generator-mappings: false
   datasource:
-    url: jdbc:mysql://localhost:3306/cljDB
-    username: root
-    password: root
+    url: jdbc:mysql://120.79.34.153:3306/spring_test?characterEncoding=utf8&characterSetResults=utf8
+    username: spring_test
+    password: tw
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     database: 0
-    host: localhost
+    host: 120.79.34.153
     port: 6379
-    password:
+    password: tw
     jedis:
       pool:
         max-active: 8
         max-wait: -1
         max-idle: 8
         min-idle: 1
-    timeout: 300
+    timeout: 100
     ssl: true
   flyway:
     enabled: true
@@ -39,11 +41,15 @@ spring:
     properties.mail.smtp.starttls.enable: true
     properties.mail.smtp.starttls.required: true
     properties.mail.smtp.ssl.enable: true
+
+server:
+  port: 8081
+
 swagger:
   basic:
     enable: true
-    username: yangqian
-    password: 123
+    username: clj
+    password: clj
 
 keyvault:
   client_id: ${AD_CLIENTID:''}

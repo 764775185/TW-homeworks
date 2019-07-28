@@ -26,16 +26,11 @@ public class MailService {
             mailService.sendHtmlMail(email,"注册验证码",message);
         }catch (Exception e){
             e.printStackTrace();
-            MailResponse mailResponse = new MailResponse();
-            mailResponse.setCode(400);
-            mailResponse.setMessage("验证码发送失败，请重新发送！");
-            return mailResponse;
+            return new MailResponse(400,"验证码发送失败，请重新发送！");
         }
-        MailResponse mailResponse = new MailResponse();
-        mailResponse.setCode(200);
-        mailResponse.setMessage("验证码发送成功!");
         redisService.set_timeout("Register_"+email,RegisterCode,5);
-        return mailResponse;
+
+        return new MailResponse(200,"验证码发送成功!");
     }
 
     public MailResponse sendResetPasswordCode(String email){
@@ -51,15 +46,10 @@ public class MailService {
             mailService.sendHtmlMail(email,"重置密码验证",message);
         }catch (Exception e){
             e.printStackTrace();
-            MailResponse mailResponse = new MailResponse();
-            mailResponse.setCode(400);
-            mailResponse.setMessage("验证码发送失败，请重新发送！");
-            return mailResponse;
+            return new MailResponse(400,"验证码发送失败，请重新发送！");
         }
-        MailResponse mailResponse = new MailResponse();
-        mailResponse.setCode(200);
-        mailResponse.setMessage("验证码发送成功!");
         redisService.set_timeout("ResetPassword_"+email,ResetPasswordCode,5);
-        return mailResponse;
+
+        return new MailResponse(200,"验证码发送成功!");
     }
 }

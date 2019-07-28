@@ -22,6 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation(value = "测试")
     @GetMapping(path = "/")
     public @ResponseBody String index(){
         System.out.println("hello,world");
@@ -49,6 +50,7 @@ public class UserController {
         return userService.findUserByEmail(email);
     }
 
+    @ApiOperation(value = "更新用户信息",notes = "仅管理员和用户本人有权限")
     @PutMapping(path="/user")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)

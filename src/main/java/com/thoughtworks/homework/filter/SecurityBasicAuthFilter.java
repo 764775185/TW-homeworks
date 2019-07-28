@@ -10,7 +10,7 @@ import java.util.Enumeration;
 
 public class SecurityBasicAuthFilter extends BasicFilter implements Filter {
     /***
-     * 是否开启basic验证,默认不开启
+     * Swagger中：是否开启basic验证,默认不开启
      */
     private boolean enableBasicAuth=false;
 
